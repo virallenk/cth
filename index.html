@@ -606,10 +606,10 @@
             font-size: 1.2rem;
         }
 
-        /* Latest Version Banner */
+        /* Latest Version Banner - IMPROVED */
         .latest-version-banner {
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-            padding: 12px 0;
+            padding: 10px 0;
             margin-bottom: 15px;
             overflow: hidden;
             position: relative;
@@ -620,12 +620,13 @@
 
         .latest-version-text {
             font-family: 'Orbitron', sans-serif;
-            font-size: 16px;
+            font-size: 13px;
             color: var(--primary);
             white-space: nowrap;
-            animation: scrollText 15s linear infinite;
+            animation: scrollText 20s linear infinite;
             display: inline-block;
             padding-left: 100%;
+            font-weight: 600;
         }
 
         @keyframes scrollText {
@@ -633,12 +634,12 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* Feature Highlights */
+        /* Feature Highlights - UPDATED */
         .feature-highlights {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 25px;
             margin: 20px 0;
         }
 
@@ -668,6 +669,67 @@
             font-size: 12px;
             color: #666;
             font-weight: 500;
+        }
+
+        /* 5-Star Rating Section */
+        .rating-section {
+            text-align: center;
+            margin: 40px auto 20px;
+            padding: 25px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.1);
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            max-width: 600px;
+        }
+
+        .rating-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .star {
+            color: #ffcc00;
+            font-size: 24px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: starPulse 2s infinite;
+        }
+
+        .star:nth-child(1) { animation-delay: 0s; }
+        .star:nth-child(2) { animation-delay: 0.2s; }
+        .star:nth-child(3) { animation-delay: 0.4s; }
+        .star:nth-child(4) { animation-delay: 0.6s; }
+        .star:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .rating-text {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .rating-subtext {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         /* Responsive */
@@ -714,11 +776,11 @@
             }
 
             .latest-version-text {
-                font-size: 14px;
+                font-size: 11px;
             }
 
             .feature-highlights {
-                gap: 10px;
+                gap: 15px;
             }
 
             .feature {
@@ -733,6 +795,27 @@
 
             .feature-text {
                 font-size: 10px;
+            }
+
+            .rating-section {
+                padding: 20px 15px;
+                margin: 30px auto 15px;
+            }
+
+            .rating-title {
+                font-size: 16px;
+            }
+
+            .star {
+                font-size: 20px;
+            }
+
+            .rating-text {
+                font-size: 14px;
+            }
+
+            .rating-subtext {
+                font-size: 13px;
             }
         }
 
@@ -800,32 +883,20 @@
         <div class="header">
             <p class="subtitle">>_ Free predictions for everyone</p>
             
-            <!-- Latest Version Banner -->
+            <!-- Latest Version Banner - IMPROVED -->
             <div class="latest-version-banner">
                 <div class="latest-version-text">
-                    ✨ UNLOCK WINNING STRATEGIES ✨ ACCURATE PREDICTIONS ✨ DAILY UPDATES ✨ JOIN OUR COMMUNITY ✨
+                    🔥 WINNING PREDICTIONS • DAILY UPDATES • FREE ACCESS • JOIN NOW • PROFESSIONAL ANALYSIS • WIN BIG 🔥
                 </div>
             </div>
             
-            <!-- Feature Highlights -->
+            <!-- Feature Highlights - UPDATED -->
             <div class="feature-highlights">
                 <div class="feature">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="feature-text">Accurate Predictions</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div class="feature-text">Fast Updates</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="feature-text">Active Community</div>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">
@@ -994,6 +1065,20 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Customer Service" style="width:16px;height:16px;">
                 CUSTOMER SUPPORT
             </button>
+        </div>
+
+        <!-- 5-Star Rating Section -->
+        <div class="rating-section">
+            <div class="rating-title">USER REVIEWS</div>
+            <div class="stars">
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+                <i class="fas fa-star star"></i>
+            </div>
+            <div class="rating-text">This hack is really the best, safe and secure!</div>
+            <div class="rating-subtext">Thousands of users trust our prediction system for accurate results and complete security. Join our community today!</div>
         </div>
     </div>
 
