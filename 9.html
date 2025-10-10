@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigMumbai Hack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light Theme Colors */
+            --primary-light: #6C5CE7;
+            --secondary-light: #00B894;
+            --accent-light: #FD79A8;
+            --gift-light: #E84393;
+            --background-light: #F8F9FA;
+            --card-light: #FFFFFF;
+            --text-light: #2D3436;
+            --border-light: rgba(0, 0, 0, 0.1);
+            --success-light: #00B894;
+            --danger-light: #D63031;
+            
+            /* Dark Theme Colors */
+            --primary-dark: #6C5CE7;
+            --secondary-dark: #00B894;
+            --accent-dark: #FD79A8;
+            --gift-dark: #E84393;
+            --background-dark: #1A1A2E;
+            --card-dark: #16213E;
+            --text-dark: #E2E2E2;
+            --border-dark: rgba(255, 255, 255, 0.1);
+            --success-dark: #00B894;
+            --danger-dark: #FF7675;
+            
+            /* Current Theme Variables */
+            --primary: var(--primary-light);
+            --secondary: var(--secondary-light);
+            --accent: var(--accent-light);
+            --gift: var(--gift-light);
+            --background: var(--background-light);
+            --card: var(--card-light);
+            --text: var(--text-light);
+            --border: var(--border-light);
+            --success: var(--success-light);
+            --danger: var(--danger-light);
+        }
+
+        [data-theme="dark"] {
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --accent: var(--accent-dark);
+            --gift: var(--gift-dark);
+            --background: var(--background-dark);
+            --card: var(--card-dark);
+            --text: var(--text-dark);
+            --border: var(--border-dark);
+            --success: var(--success-dark);
+            --danger: var(--danger-dark);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(108, 92, 231, 0.1);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .bubble:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 6s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            top: 50%;
+            left: 40%;
+            animation-delay: 8s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(-10px) translateX(20px);
+            }
+            75% {
+                transform: translateY(-30px) translateX(-10px);
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            backdrop-filter: blur(5px);
+        }
+
+        [data-theme="dark"] .container {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Welcome Dialog */
+        .welcome-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .welcome-content {
+            background-color: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .welcome-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .welcome-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .welcome-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 25px;
+        }
+
+        /* Server Status */
+        .server-status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 15px;
+            border-radius: 10px;
+            background: rgba(0, 184, 148, 0.1);
+            border: 1px solid rgba(0, 184, 148, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--success);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .server-status i {
+            font-size: 14px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .theme-switch {
+            position: absolute;
+            top: 20px;
+            right: 80px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            border: none;
+            outline: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .theme-switch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .theme-switch i {
+            color: white;
+            font-size: 18px;
+        }
+
+        .language-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 40px;
+            border-radius: 20px;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+            border: none;
+            outline: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            gap: 5px;
+        }
+
+        .language-switch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+        }
+
+        .language-switch i {
+            font-size: 14px;
+        }
+
+        .user-counter {
+            position: absolute;
+            top: 65px;
+            left: 20px;
+            padding: 8px 15px;
+            border-radius: 10px;
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-counter i {
+            font-size: 14px;
+        }
+
+        .user-counter span {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .game-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px 0 25px;
+            position: relative;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo {
+            height: 70px;
+            width: auto;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.15));
+            transition: transform 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        [data-theme="dark"] .logo {
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        }
+
+        .verified-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, #00B894, #55E6C1);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 3px 10px rgba(0, 184, 148, 0.4);
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .game-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary);
+            margin-top: 10px;
+            text-shadow: 0 2px 5px rgba(108, 92, 231, 0.2);
+        }
+
+        .game-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text);
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .game-selection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .game-option {
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            background: rgba(108, 92, 231, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+            color: var(--text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .game-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.1);
+            border-color: rgba(108, 92, 231, 0.3);
+        }
+
+        .game-option:hover::before {
+            opacity: 1;
+        }
+
+        .game-option.active {
+            background: rgba(108, 92, 231, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.2);
+        }
+
+        .game-option.active::before {
+            opacity: 1;
+        }
+
+        .game-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.15));
+            transition: transform 0.3s ease;
+        }
+
+        .game-option:hover .game-icon {
+            transform: scale(1.1);
+        }
+
+        [data-theme="dark"] .game-icon {
+            filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.4));
+        }
+
+        .notification-banner {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+
+        .notification-text {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--success);
+            animation: scrollText 15s linear infinite;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        @keyframes scrollText {
+            0% { left: 100%; transform: translateX(0); }
+            100% { left: 0; transform: translateX(-100%); }
+        }
+
+        .input-container {
+            position: relative;
+            margin: 25px 0;
+        }
+
+        .input-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(108, 92, 231, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .input-field::placeholder {
+            color: rgba(108, 92, 231, 0.5);
+        }
+
+        [data-theme="dark"] .input-field {
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        .message {
+            position: absolute;
+            bottom: -22px;
+            left: 0;
+            font-size: 12px;
+            color: var(--danger);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result-container {
+            height: 120px;
+            width: 100%;
+            margin: 25px 0;
+            border-radius: 15px;
+            background: rgba(108, 92, 231, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .result-container {
+            background: rgba(108, 92, 231, 0.05);
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .result {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .result.big {
+            color: var(--primary);
+        }
+
+        .result.small {
+            color: var(--secondary);
+        }
+
+        .result.red {
+            color: var(--danger);
+        }
+
+        .result.green {
+            color: var(--success);
+        }
+
+        .result.violet {
+            color: var(--gift);
+        }
+
+        .result.numbers {
+            display: flex;
+            gap: 15px;
+            font-size: 28px;
+        }
+
+        .number {
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            min-width: 40px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chance-indicator {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            opacity: 0.8;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(245, 245, 245, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        [data-theme="dark"] .loading {
+            background: rgba(30, 30, 30, 0.8);
+        }
+
+        .loading.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% { 
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 15px;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-start {
+            background-color: var(--primary);
+            background-image: linear-gradient(135deg, var(--primary) 0%, #8C7AE6 100%);
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-register {
+            background-color: var(--secondary);
+            background-image: linear-gradient(135deg, var(--secondary) 0%, #55E6C1 100%);
+            box-shadow: 0 5px 20px rgba(0, 184, 148, 0.4);
+            position: relative;
+        }
+
+        .btn-telegram {
+            background-color: #0088CC;
+            background-image: linear-gradient(135deg, #0088CC 0%, #00B0E6 100%);
+            box-shadow: 0 5px 20px rgba(0, 136, 204, 0.4);
+            position: relative;
+        }
+
+        .btn-gift {
+            background-color: var(--gift);
+            background-image: linear-gradient(135deg, var(--gift) 0%, #FD79A8 100%);
+            box-shadow: 0 5px 20px rgba(232, 67, 147, 0.4);
+        }
+
+        .btn-support {
+            background-color: var(--accent);
+            background-image: linear-gradient(135deg, var(--accent) 0%, #FF9FF3 100%);
+            box-shadow: 0 5px 20px rgba(253, 121, 168, 0.4);
+        }
+
+        .btn-help {
+            background-color: #F39C12;
+            background-image: linear-gradient(135deg, #F39C12 0%, #F1C40F 100%);
+            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.4);
+            position: absolute;
+            top: 65px;
+            right: 20px;
+            width: auto;
+            padding: 8px 15px;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        /* Button Tags */
+        .btn-tag {
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: #FFD700;
+            color: #000;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-tag.free {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .info-text {
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0.8;
+            text-align: center;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .divider {
+            height: 1px;
+            width: 100%;
+            background: var(--border);
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Bottom Info Section */
+        .bottom-info {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(108, 92, 231, 0.05);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .safe-text {
+            text-align: center;
+            color: var(--success);
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .user-review {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-review i {
+            color: var(--success);
+        }
+
+        .server-info {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .server-info i {
+            color: var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        .telegram-link {
+            font-size: 13px;
+            color: #0088CC;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .telegram-link:hover {
+            color: #0066AA;
+        }
+
+        /* Mode Selection */
+        .mode-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .mode-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .mode-option:hover {
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .mode-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .mode-option.active .mode-checkbox {
+            background: var(--primary);
+        }
+
+        .mode-option.active .mode-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .mode-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .current-mode {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Percentage Toggle */
+        .percentage-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 10px 15px;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .toggle-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--success);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Tip Message */
+        .tip-message {
+            background: rgba(0, 184, 148, 0.1);
+            border: 1px solid rgba(0, 184, 148, 0.2);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text);
+        }
+
+        .register-link {
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .register-link:hover {
+            color: var(--primary);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .modal-body ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-got-it {
+            background-color: #3498db;
+            background-image: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.4);
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .game-selection {
+                flex-direction: column;
+            }
+            
+            .btn {
+                padding: 16px;
+            }
+            
+            .result {
+                font-size: 28px;
+            }
+            
+            .result.numbers {
+                font-size: 24px;
+                gap: 10px;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .game-title {
+                font-size: 18px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .welcome-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light" data-lang="en">
+    <!-- Welcome Dialog -->
+    <div class="welcome-dialog" id="welcomeDialog">
+        <div class="welcome-content">
+            <div class="welcome-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h2 class="welcome-title">Welcome!</h2>
+            <p class="welcome-text">For better and long term profit, register new BigMumbai account by clicking on below button</p>
+            <button class="btn btn-register" id="welcomeRegisterBtn">
+                <span class="btn-tag">Bonus</span>
+                <i class="fas fa-user-plus"></i>
+                <span>Register Account</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="container">
+        <div class="server-status">
+            <i class="fas fa-circle-check"></i>
+            <span class="en-text">Server: Active</span>
+            <span class="hi-text" style="display:none;">सर्वर: सक्रिय</span>
+        </div>
+        
+        <button class="theme-switch" id="themeSwitch">
+            <i class="fas fa-sun"></i>
+        </button>
+        
+        <button class="language-switch" id="languageSwitch" title="Change Language">
+            <i class="fas fa-language"></i> EN
+        </button>
+        
+        <button class="btn btn-help" id="helpBtn">
+            <i class="fas fa-question-circle"></i>
+            <span class="en-text">How to Use</span>
+            <span class="hi-text" style="display:none;">कैसे उपयोग करें</span>
+        </button>
+        
+        <div class="user-counter">
+            <i class="fas fa-users"></i> <span id="onlineUsers">1,284</span>
+        </div>
+        
+        <div class="game-header">
+            <div class="logo-container">
+                <img src="logo9.png" alt="Logo" class="logo">
+                <div class="verified-badge">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+            <div class="game-title">BigMumbai Hack</div>
+            <div class="game-subtitle">Advance-AI Hack Server </div>
+        </div>
+        
+        <div class="notification-banner">
+            <div class="notification-text">
+                <i class="fas fa-exclamation-circle"></i>
+                <span class="en-text">Note : for better profit and accuracy, make a new BigMumbai account by clicking on "register" button</span>
+                <span class="hi-text" style="display:none;">नोट : बेहतर लाभ और सटीकता के लिए, "रजिस्टर" बटन पर क्लिक करके एक नया गेम अकाउंट बनाएं</span>
+            </div>
+        </div>
+        
+        <div class="game-selection">
+            <div class="game-option active" data-game="wingo">
+                <img src="wingo.png" alt="Wingo" class="game-icon">
+                <span class="en-text">Wingo 30s</span>
+                <span class="hi-text" style="display:none;">विंगो 30s</span>
+            </div>
+            <div class="game-option" data-game="moto">
+                <img src="wingo.png" alt="Wingo" class="game-icon">
+                <span class="en-text">Wingo 1m</span>
+                <span class="hi-text" style="display:none;">विंगो 1m</span>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <label for="periodNumber" class="en-text"><i class="fas fa-hashtag"></i> ENTER PERIOD NUMBER</label>
+            <label for="periodNumber" class="hi-text" style="display:none;"><i class="fas fa-hashtag"></i> पीरियड नंबर दर्ज करें</label>
+            <input type="number" id="periodNumber" class="input-field" placeholder="Enter period number">
+            <div class="message" id="message"></div>
+        </div>
+        
+        <div class="result-container">
+            <div class="loading" id="loading">
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="loading-text en-text">Analyzing Pattern...</div>
+                <div class="loading-text hi-text" style="display:none;">पैटर्न का विश्लेषण किया जा रहा है...</div>
+            </div>
+            <div class="result" id="result">-</div>
+            <div class="chance-indicator" id="chanceIndicator">
+                <span class="en-text">Chance: <span id="chanceValue">75</span>%</span>
+                <span class="hi-text" style="display:none;">संभावना: <span id="chanceValueHi">75</span>%</span>
+            </div>
+        </div>
+        
+        <button class="btn btn-start" id="startBtn">
+            <i class="fas fa-play"></i>
+            <span class="en-text">Start Prediction</span>
+            <span class="hi-text" style="display:none;">भविष्यवाणी शुरू करें</span>
+        </button>
+        
+        <div class="divider"></div>
+        
+        <p class="info-text en-text">
+            Create a new BigMumbai account by clicking on 'Register' button, if you use this hack in your old account, then hack will not work perfectly. 'Register' बटन पर क्लिक करके एक नया account बनाएं, यदि आप इस हैक का उपयोग अपने पुराने account में करते हैं, तो आपका loss हों सकता है।
+        </p>
+        <p class="info-text hi-text" style="display:none;">
+            'रजिस्टर' बटन पर क्लिक करके एक नया अकाउंट बनाएं, यदि आप इस हैक का उपयोग अपने पुराने अकाउंट में करते हैं, तो हैक पूरी तरह से काम नहीं करेगा। Create a new account by clicking on 'Register' button, if you use this hack in your old account, then hack will not work perfectly.
+        </p>
+        
+        <button class="btn btn-register" id="registerBtn">
+            <span class="btn-tag">Bonus</span>
+            <i class="fas fa-user-plus"></i>
+            <span class="en-text">Register Account</span>
+            <span class="hi-text" style="display:none;">अकाउंट रजिस्टर करें</span>
+        </button>
+        
+        <button class="btn btn-telegram" id="telegramBtn">
+            <span class="btn-tag free">Free</span>
+            <i class="fab fa-telegram"></i>
+            <span class="en-text">Join Telegram</span>
+            <span class="hi-text" style="display:none;">टेलीग्राम जॉइन करें</span>
+        </button>
+        
+        <button class="btn btn-gift" id="giftBtn">
+            <i class="fas fa-gift"></i>
+            <span class="en-text">Gift Code</span>
+            <span class="hi-text" style="display:none;">गिफ्ट कोड</span>
+        </button>
+        
+        <button class="btn btn-support" id="supportBtn">
+            <i class="fas fa-headset"></i>
+            <span class="en-text">Customer Support</span>
+            <span class="hi-text" style="display:none;">ग्राहक सहायता</span>
+        </button>
+        
+        <!-- Bottom Info Section -->
+        <div class="bottom-info">
+            <div class="safe-text">100% Safe and Secure APK</div>
+            
+            <div class="user-review">
+                <i class="fas fa-user-circle"></i>
+                <span id="userReviewText">User 789****678 Won ₹4000</span>
+            </div>
+            
+            <div class="server-info">
+                <i class="fas fa-circle-check"></i>
+                <span>Server: India (Active)</span>
+            </div>
+            
+            <div class="telegram-link" id="telegramLink">
+                <i class="fab fa-telegram"></i>
+                <span>For more information, Join Telegram Channel</span>
+            </div>
+            
+            <!-- Percentage Toggle -->
+            <div class="percentage-toggle">
+                <span class="toggle-label">Show Percentage</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="percentageToggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            
+            <!-- Mode Selection -->
+            <div class="mode-selection">
+                <div class="mode-option active" data-mode="everything">
+                    <div class="mode-checkbox"></div>
+                    <span class="mode-label">Show Everything</span>
+                </div>
+                <div class="mode-option" data-mode="numbers">
+                    <div class="mode-checkbox"></div>
+                    <span class="mode-label">Show Only Numbers</span>
+                </div>
+            </div>
+            
+            <div class="current-mode">
+                <i class="fas fa-info-circle"></i>
+                <span>Current Mode: <span id="currentModeText">Show Everything</span></span>
+            </div>
+            
+            <!-- Tip Message -->
+            <div class="tip-message">
+                <i class="fas fa-lightbulb"></i> For Longterm Profit and High Accuracy, Register a new BigMumbai account by clicking on above <span class="register-link" id="tipRegisterLink">Register</span> button.
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Use Modal -->
+    <div class="modal" id="helpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title en-text">How to Use BigMumbai Hack</h3>
+                <h3 class="modal-title hi-text" style="display:none;">BigMumbai hack का उपयोग कैसे करें</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="en-text">
+                    <ol>
+                        <li>First, create a new account by clicking on the 'Register' button. It will help you to win more</li>
+                        <li>Then, open WinGo game in BigMumbai and select any of WinGo modes (1m, 30s or 3m).</li>
+                        <li>Enter period number and click on 'START' button to get prediction.</li>
+                        <li>Wait for the AI to calculate the most probable outcome</li>
+                        <li>Use the predicted result in your game</li>
+                        <li>For best results, use a new BigMumbai account created via the "Register" button in hack</li>
+                        <li>Join our Telegram channel for updates and Maintain level.</li>
+                    </ol>
+                    <p><strong>Note:</strong> This tool uses advanced AI algorithms to analyze game patterns and predict outcomes with high accuracy. For best outcomes create account via register button.</p>
+                </div>
+                <div class="hi-text" style="display:none;">
+                    <ol>
+                       <li>सबसे पहले 'Register' बटन पर क्लिक करके नया अकाउंट बनाओ। इससे जीतने के चांस ज़्यादा होंगे।</li>
+<li>फिर BigMumbai में WinGo गेम खोलो और कोई भी WinGo मोड चुनो (1 मिनट, 30 सेकंड या 3 मिनट)।</li>
+<li>अब पीरियड नंबर डालो और 'START' बटन पर क्लिक करो ताकि प्रेडिक्शन मिल सके।</li>
+<li>फिर AI के रिजल्ट का वेट करो, ये सबसे ज्यादा मुमकिन रिजल्ट बताएगा।</li>
+<li>जो प्रेडिक्शन आया है, उसे गेम में यूज़ करो।</li>
+<li>सबसे अच्छे रिजल्ट के लिए, वही नया अकाउंट यूज़ करो जो "Register" बटन से बनाया गया हो।</li>
+<li>हमारे Telegram चैनल से जुड़ो ताकि अपडेट्स मिलते रहें और लेवल भी बना रहे।</li>
+
+                    </ol>
+                    <p><strong>नोट:</strong> यह टूल उन्नत AI एल्गोरिदम का उपयोग करता है जो गेम पैटर्न का विश्लेषण करता है और उच्च सटीकता के साथ परिणामों की भविष्यवाणी करता है।</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-got-it" id="gotItBtn">
+                    <span class="en-text">Got It!</span>
+                    <span class="hi-text" style="display:none;">समझ गया!</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open URL in external browser
+        function openInBrowser(url) {
+            // This will be handled by Android WebView's shouldOverrideUrlLoading
+            window.open(url, '_system');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Welcome dialog functionality
+            const welcomeDialog = document.getElementById('welcomeDialog');
+            const welcomeRegisterBtn = document.getElementById('welcomeRegisterBtn');
+            
+            // Show welcome dialog on page load
+            welcomeDialog.style.display = 'flex';
+            
+            // Auto close after 4 seconds
+            setTimeout(() => {
+                welcomeDialog.style.display = 'none';
+            }, 6000);
+            
+            // Close when clicking anywhere
+            welcomeDialog.addEventListener('click', function(e) {
+                if (e.target === welcomeDialog) {
+                    welcomeDialog.style.display = 'none';
+                }
+            });
+            
+            // Close when clicking register button
+            welcomeRegisterBtn.addEventListener('click', function() {
+                welcomeDialog.style.display = 'none';
+                openInBrowser('https://colorsignup.github.io/ES1/Bigmumbai');
+            });
+            
+            // Theme switching functionality
+            const themeSwitch = document.getElementById('themeSwitch');
+            const body = document.body;
+            const themeIcon = themeSwitch.querySelector('i');
+            
+            // Check for saved theme preference or use light theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.setAttribute('data-theme', savedTheme);
+            
+            // Set appropriate icon
+            if (savedTheme === 'dark') {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            
+            themeSwitch.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                // Update theme
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Update icon with animation
+                themeSwitch.style.transform = 'scale(0.9) rotate(180deg)';
+                setTimeout(() => {
+                    if (newTheme === 'dark') {
+                        themeIcon.classList.remove('fa-sun');
+                        themeIcon.classList.add('fa-moon');
+                    } else {
+                        themeIcon.classList.remove('fa-moon');
+                        themeIcon.classList.add('fa-sun');
+                    }
+                    themeSwitch.style.transform = 'scale(1) rotate(0)';
+                }, 200);
+            });
+            
+            // Language switching functionality
+            const languageSwitch = document.getElementById('languageSwitch');
+            const savedLang = localStorage.getItem('language') || 'en';
+            body.setAttribute('data-lang', savedLang);
+            updateLanguageDisplay(savedLang);
+            
+            languageSwitch.addEventListener('click', function() {
+                const currentLang = body.getAttribute('data-lang');
+                const newLang = currentLang === 'en' ? 'hi' : 'en';
+                
+                // Update language
+                body.setAttribute('data-lang', newLang);
+                localStorage.setItem('language', newLang);
+                updateLanguageDisplay(newLang);
+                
+                // Button animation
+                languageSwitch.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    languageSwitch.style.transform = 'scale(1)';
+                }, 200);
+            });
+            
+            function updateLanguageDisplay(lang) {
+                // Update all elements with language classes
+                document.querySelectorAll('.en-text').forEach(el => {
+                    el.style.display = lang === 'en' ? 'inline' : 'none';
+                });
+                document.querySelectorAll('.hi-text').forEach(el => {
+                    el.style.display = lang === 'hi' ? 'inline' : 'none';
+                });
+                
+                // Update language switch button text
+                const langText = lang === 'en' ? 'EN' : 'HI';
+                languageSwitch.innerHTML = `<i class="fas fa-language"></i> ${langText}`;
+            }
+            
+            // Update online users counter
+            const onlineUsersElement = document.getElementById('onlineUsers');
+            function updateOnlineUsers() {
+                const change = Math.floor(Math.random() * 100) - 30; // -30 to +70
+                const current = parseInt(onlineUsersElement.textContent.replace(/,/g, '')) || 1000;
+                let newCount = current + change;
+                
+                // Keep between 300-5000
+                if (newCount < 5000) newCount = 5000 + Math.floor(Math.random() * 200);
+                if (newCount > 25000) newCount = 25000 - Math.floor(Math.random() * 200);
+                
+                onlineUsersElement.textContent = newCount.toLocaleString();
+                
+                // Schedule next update with random delay (1-3 seconds)
+                setTimeout(updateOnlineUsers, 1000 + Math.random() * 2000);
+            }
+            updateOnlineUsers();
+            
+            // Game logic
+            const startBtn = document.getElementById('startBtn');
+            const resultElement = document.getElementById('result');
+            const loadingElement = document.getElementById('loading');
+            const periodInput = document.getElementById('periodNumber');
+            const gameOptions = document.querySelectorAll('.game-option');
+            const messageElement = document.getElementById('message');
+            const registerBtn = document.getElementById('registerBtn');
+            const telegramBtn = document.getElementById('telegramBtn');
+            const giftBtn = document.getElementById('giftBtn');
+            const supportBtn = document.getElementById('supportBtn');
+            const chanceIndicator = document.getElementById('chanceIndicator');
+            const chanceValue = document.getElementById('chanceValue');
+            const chanceValueHi = document.getElementById('chanceValueHi');
+            const helpBtn = document.getElementById('helpBtn');
+            const helpModal = document.getElementById('helpModal');
+            const closeModal = document.getElementById('closeModal');
+            const gotItBtn = document.getElementById('gotItBtn');
+            const userReviewText = document.getElementById('userReviewText');
+            const telegramLink = document.getElementById('telegramLink');
+            const modeOptions = document.querySelectorAll('.mode-option');
+            const currentModeText = document.getElementById('currentModeText');
+            const percentageToggle = document.getElementById('percentageToggle');
+            const tipRegisterLink = document.getElementById('tipRegisterLink');
+            
+            let currentGame = 'wingo';
+            let usedPeriods = new Set();
+            let currentMode = 'everything'; // 'everything' or 'numbers'
+            let showPercentage = true; // Default is Yes
+            
+            // All possible results for Wingo game with numbers
+            const wingoResults = [
+                "0 Small Violet",
+                "1 Small Green",
+                "2 Small Red",
+                "3 Small Green",
+                "4 Small Red",
+                "5 Big Violet",
+                "6 Big Red",
+                "7 Big Green",
+                "8 Big Red",
+                "9 Big Green"
+            ];
+            
+            // Generate random user review
+            function generateUserReview() {
+                const firstPart = Math.floor(Math.random() * 300) + 600; // 600-899
+                const secondPart = Math.floor(Math.random() * 300) + 600; // 600-899
+                const amount = Math.floor(Math.random() * 4001) + 4000; // 4000-8000
+                
+                return `User ${firstPart}****${secondPart} Won ₹${amount}`;
+            }
+            
+            // Update user review
+            userReviewText.textContent = generateUserReview();
+            
+            // Update user review every 10 seconds
+            setInterval(() => {
+                userReviewText.textContent = generateUserReview();
+            }, 10000);
+            
+            // Percentage toggle functionality
+            percentageToggle.addEventListener('change', function() {
+                showPercentage = this.checked;
+                if (!showPercentage) {
+                    chanceIndicator.style.display = 'none';
+                } else if (resultElement.textContent !== '-') {
+                    chanceIndicator.style.display = 'block';
+                }
+            });
+            
+            // Tip register link functionality
+            tipRegisterLink.addEventListener('click', function() {
+                openInBrowser('https://colorsignup.github.io/ES1/Bigmumbai');
+            });
+            
+            // Mode selection
+            modeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    modeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    currentMode = this.dataset.mode;
+                    currentModeText.textContent = this.querySelector('.mode-label').textContent;
+                    
+                    // Clear result when changing mode
+                    resultElement.textContent = '-';
+                    resultElement.className = 'result';
+                    chanceIndicator.style.display = 'none';
+                });
+            });
+            
+            // Generate 5 unique random numbers between 0-9
+            function generateUniqueNumbers() {
+                const numbers = [];
+                while (numbers.length < 5) {
+                    const num = Math.floor(Math.random() * 10);
+                    if (!numbers.includes(num)) {
+                        numbers.push(num);
+                    }
+                }
+                return numbers;
+            }
+            
+            // Game option selection
+            gameOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    gameOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    currentGame = this.dataset.game;
+                    resultElement.textContent = '-';
+                    resultElement.className = 'result';
+                    chanceIndicator.style.display = 'none';
+                    
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+            
+            // Show message
+            function showMessage(text, isError = false) {
+                messageElement.textContent = text;
+                messageElement.style.color = isError ? 'var(--danger)' : 'var(--primary)';
+                messageElement.classList.add('show');
+                
+                setTimeout(() => {
+                    messageElement.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Start button click handler
+            startBtn.addEventListener('click', function() {
+                const period = periodInput.value.trim();
+                
+                if (!period) {
+                    const currentLang = body.getAttribute('data-lang');
+                    showMessage(currentLang === 'en' ? 'Please enter a period number' : 'कृपया पीरियड नंबर दर्ज करें', true);
+                    return;
+                }
+                
+                if (usedPeriods.has(period)) {
+                    const currentLang = body.getAttribute('data-lang');
+                    showMessage(currentLang === 'en' ? 'Period already used' : 'पीरियड पहले ही उपयोग किया जा चुका है', true);
+                    return;
+                }
+                
+                usedPeriods.add(period);
+                
+                // Show loading
+                loadingElement.classList.add('active');
+                resultElement.style.opacity = '0';
+                chanceIndicator.style.display = 'none';
+                
+                // Button click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+                
+                // Simulate loading for 2 seconds
+                setTimeout(() => {
+                    loadingElement.classList.remove('active');
+                    
+                    let result, resultClass;
+                    
+                    if (currentMode === 'everything') {
+                        // For both games, use the Wingo results
+                        const randomIndex = Math.floor(Math.random() * wingoResults.length);
+                        result = wingoResults[randomIndex];
+                        
+                        // Determine the result class based on the result
+                        if (result.includes('Big')) {
+                            resultClass = 'big';
+                        } else if (result.includes('Small')) {
+                            resultClass = 'small';
+                        }
+                        
+                        if (result.includes('Red')) {
+                            resultClass += ' red';
+                        } else if (result.includes('Green')) {
+                            resultClass += ' green';
+                        } else if (result.includes('Violet')) {
+                            resultClass += ' violet';
+                        }
+                        
+                        // Display result with animation
+                        resultElement.textContent = result;
+                        resultElement.className = 'result ' + resultClass;
+                    } else {
+                        // Numbers mode - show 5 unique numbers
+                        const numbers = generateUniqueNumbers();
+                        resultElement.innerHTML = '';
+                        resultElement.className = 'result numbers';
+                        
+                        numbers.forEach(num => {
+                            const numberElement = document.createElement('div');
+                            numberElement.className = 'number';
+                            numberElement.textContent = num;
+                            resultElement.appendChild(numberElement);
+                        });
+                        
+                        resultClass = 'numbers';
+                    }
+                    
+                    // Generate random chance (50-90%)
+                    const chance = Math.floor(Math.random() * 41) + 50;
+                    chanceValue.textContent = chance;
+                    chanceValueHi.textContent = chance;
+                    
+                    resultElement.style.opacity = '1';
+                    
+                    // Show percentage based on toggle
+                    if (showPercentage) {
+                        chanceIndicator.style.display = 'block';
+                    }
+                    
+                    // Glow animation
+                    if (currentMode === 'everything') {
+                        const glowIntensity = [15, 25, 15];
+                        let i = 0;
+                        const glowInterval = setInterval(() => {
+                            resultElement.style.textShadow = `0 0 ${glowIntensity[i]}px currentColor`;
+                            i = (i + 1) % glowIntensity.length;
+                            if (i === 0) clearInterval(glowInterval);
+                        }, 200);
+                    }
+                    
+                }, 2000);
+            });
+            
+            // Button click handlers with animations
+            function setupButton(btn, url) {
+                btn.addEventListener('click', function() {
+                    // Click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                    
+                    // Ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    // Set ripple size and position
+                    const diameter = Math.max(btn.clientWidth, btn.clientHeight);
+                    const radius = diameter / 2;
+                    ripple.style.width = ripple.style.height = `${diameter}px`;
+                    ripple.style.left = `${event.clientX - btn.getBoundingClientRect().left - radius}px`;
+                    ripple.style.top = `${event.clientY - btn.getBoundingClientRect().top - radius}px`;
+                    
+                    btn.appendChild(ripple);
+                    
+                    // Remove ripple after animation
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                    
+                    // Open URL in external browser
+                    setTimeout(() => {
+                        openInBrowser(url);
+                    }, 300);
+                });
+            }
+            
+            // Setup buttons with animations and external browser opening
+            setupButton(registerBtn, 'https://colorsignup.github.io/ES1/Bigmumbai');
+            setupButton(telegramBtn, 'https://telegram.dog/EarningScripter1');
+            setupButton(giftBtn, 'https://t.me/+MNnTbRNLPw0yNjhl');
+            setupButton(supportBtn, 'https://telegram.dog/EarningScripter1_bot');
+            
+            // Telegram link click handler
+            telegramLink.addEventListener('click', function() {
+                openInBrowser('https://telegram.dog/EarningScripter1');
+            });
+            
+            // Help modal functionality
+            helpBtn.addEventListener('click', function() {
+                helpModal.style.display = 'flex';
+                
+                // Button click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+            
+            closeModal.addEventListener('click', function() {
+                helpModal.style.display = 'none';
+            });
+            
+            gotItBtn.addEventListener('click', function() {
+                helpModal.style.display = 'none';
+                
+                // Button click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === helpModal) {
+                    helpModal.style.display = 'none';
+                }
+            });
+            
+            // Add ripple animation to styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
