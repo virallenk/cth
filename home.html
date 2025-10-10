@@ -18,6 +18,7 @@
             --success: #4caf50;
             --error: #f44336;
             --warning: #ff9800;
+            --hot: #ff3d00;
             --whatsapp: #25D366;
             --instagram: #E1306C;
             --premium: #ffcc00;
@@ -374,10 +375,26 @@
             box-shadow: 0 4px 10px rgba(138, 43, 226, 0.05);
         }
 
+        /* Recommended Games Text */
+        .recommended-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--primary);
+            margin: 20px auto 10px;
+            font-weight: 600;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 0.5px;
+            max-width: 800px;
+            padding: 8px 15px;
+            background: rgba(138, 43, 226, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
         /* Gift Code Button */
         .gift-code-btn-container {
             text-align: center;
-            margin: 20px auto;
+            margin: 10px auto 20px;
             position: relative;
         }
 
@@ -478,38 +495,29 @@
             pointer-events: none;
         }
 
-        /* New Tag */
-        .new-tag {
+        /* HOT Tag */
+        .hot-tag {
             position: absolute;
             top: -10px;
             right: -10px;
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--hot), #ff6d00);
             color: white;
             padding: 3px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
             transform: rotate(5deg);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 10px rgba(255, 61, 0, 0.3);
             z-index: 2;
-            animation: pulse 1.5s infinite;
+            animation: hotPulse 1.5s infinite;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
         }
 
-        /* Recommended Tag */
-        .recommended-tag {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--success);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            transform: rotate(5deg);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            z-index: 2;
-            animation: pulse 1.5s infinite;
+        @keyframes hotPulse {
+            0% { transform: rotate(5deg) scale(1); box-shadow: 0 3px 10px rgba(255, 61, 0, 0.3); }
+            50% { transform: rotate(5deg) scale(1.1); box-shadow: 0 3px 15px rgba(255, 61, 0, 0.5); }
+            100% { transform: rotate(5deg) scale(1); box-shadow: 0 3px 10px rgba(255, 61, 0, 0.3); }
         }
 
         /* Coming Soon Tag */
@@ -758,7 +766,7 @@
                 max-width: 250px;
             }
 
-            .recommended-tag, .new-tag, .coming-soon-tag {
+            .hot-tag, .coming-soon-tag {
                 font-size: 10px;
                 padding: 2px 8px;
                 top: -8px;
@@ -816,6 +824,11 @@
 
             .rating-subtext {
                 font-size: 13px;
+            }
+
+            .recommended-text {
+                font-size: 12px;
+                padding: 6px 12px;
             }
         }
 
@@ -918,9 +931,9 @@
         </div>
         
         <div class="game-grid">
-            <!-- Game Containers -->
+            <!-- Game Containers with HOT Tags -->
             <div class="game-container-wrapper">
-                <span class="recommended-tag">NEW</span>
+                <span class="hot-tag">HOT 🔥</span>
                 <div class="game-container" data-href="1.html">
                     <img src="logo1.png" alt="91CLUB" class="game-logo">
                     <div class="game-name">91club Hack</div>
@@ -928,7 +941,7 @@
             </div>
             
             <div class="game-container-wrapper">
-                <span class="recommended-tag">NEW</span>
+                <span class="hot-tag">HOT 🔥</span>
                 <div class="game-container" data-href="2.html">
                     <img src="logo2.png" alt="55club" class="game-logo">
                     <div class="game-name">55club Hack</div>
@@ -936,7 +949,7 @@
             </div>
             
             <div class="game-container-wrapper">
-                <span class="recommended-tag">NEW</span>
+                <span class="hot-tag">HOT 🔥</span>
                 <div class="game-container" data-href="3.html">
                     <img src="logo3.png" alt="in999" class="game-logo">
                     <div class="game-name">In999 Hack</div>
@@ -944,7 +957,7 @@
             </div>
             
             <div class="game-container-wrapper">
-                <span class="recommended-tag">NEW</span>
+                <span class="hot-tag">HOT 🔥</span>
                 <div class="game-container" data-href="4.html">
                     <img src="logo4.png" alt="Daman" class="game-logo">
                     <div class="game-name">Daman Hack</div>
@@ -1007,7 +1020,7 @@
                 </div>
             </div>
             
-            <!-- Coming Soon Games -->
+            <!-- Coming Tomorrow Games -->
             <div class="game-container-wrapper">
                 <span class="coming-soon-tag">COMING TOMORROW</span>
                 <div class="game-container coming-soon">
@@ -1023,6 +1036,28 @@
                     <div class="game-name">Chicken Road Hack</div>
                 </div>
             </div>
+            
+            <!-- New Coming Soon Games - Dragon Tiger and Mines -->
+            <div class="game-container-wrapper">
+                <span class="coming-soon-tag">COMING SOON</span>
+                <div class="game-container coming-soon">
+                    <img src="dragon-tiger.png" alt="Dragon Tiger" class="game-logo">
+                    <div class="game-name">Dragon Tiger Hack</div>
+                </div>
+            </div>
+            
+            <div class="game-container-wrapper">
+                <span class="coming-soon-tag">COMING SOON</span>
+                <div class="game-container coming-soon">
+                    <img src="mines.png" alt="Mines" class="game-logo">
+                    <div class="game-name">Mines Hack</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommended Games Text -->
+        <div class="recommended-text">
+            Recommended Games :- 91Club , 55Club , In999 , Daman Games !
         </div>
         
         <!-- Gift Code Button -->
@@ -1223,7 +1258,7 @@
             
             // Gift code button
             document.getElementById('giftCodeBtn').addEventListener('click', () => {
-                window.open('https://t.me/+IMhgMZar99U1MGM1', '_blank');
+                window.open('https://t.me/+MNnTbRNLPw0yNjhl', '_blank');
             });
             
             // Customer service button
