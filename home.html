@@ -1242,6 +1242,28 @@
                     }
                 });
             });
+            
+            // Add scroll to top functionality for coming soon games
+            const comingSoonContainers = document.querySelectorAll('.game-container.coming-soon');
+            
+            comingSoonContainers.forEach(container => {
+                container.addEventListener('click', () => {
+                    // Smooth scroll to top
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Add a visual feedback effect
+                    container.style.transform = 'scale(0.95)';
+                    container.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
+                    
+                    setTimeout(() => {
+                        container.style.transform = '';
+                        container.style.backgroundColor = '';
+                    }, 300);
+                });
+            });
         }
         
         // Button click handlers
