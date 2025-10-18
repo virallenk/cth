@@ -41,6 +41,9 @@
             padding: 20px;
             position: relative;
             overflow-x: hidden;
+            /* Performance improvements */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Background Pattern */
@@ -59,7 +62,7 @@
             background-size: 50px 50px;
         }
 
-        /* Floating Elements */
+        /* Floating Elements - Reduced animation complexity */
         .floating-element {
             position: fixed;
             border-radius: 50%;
@@ -73,7 +76,7 @@
             background: var(--primary);
             top: 10%;
             left: 5%;
-            animation: float 15s infinite ease-in-out;
+            animation: float 20s infinite ease-in-out;
         }
 
         .floating-2 {
@@ -82,7 +85,7 @@
             background: var(--secondary);
             top: 70%;
             right: 10%;
-            animation: float 12s infinite ease-in-out reverse;
+            animation: float 16s infinite ease-in-out reverse;
         }
 
         .floating-3 {
@@ -91,12 +94,12 @@
             background: var(--accent);
             bottom: 20%;
             left: 15%;
-            animation: float 18s infinite ease-in-out;
+            animation: float 24s infinite ease-in-out;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Main Container */
@@ -189,7 +192,7 @@
             transform: rotate(5deg);
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             z-index: 2;
-            animation: pulse 1.5s infinite;
+            animation: pulse 2s infinite;
         }
 
         .btn-whatsapp {
@@ -441,7 +444,7 @@
             box-shadow: 0 12px 25px rgba(233, 30, 99, 0.3);
         }
 
-        /* Image Slider - MOVED BELOW GIFT CODE BUTTON */
+        /* Image Slider */
         .slider-container {
             width: 100%;
             max-width: 800px;
@@ -465,6 +468,7 @@
             min-width: 100%;
             height: 100%;
             position: relative;
+            flex-shrink: 0;
         }
 
         .slide img {
@@ -509,14 +513,14 @@
             transform: rotate(5deg);
             box-shadow: 0 3px 10px rgba(255, 61, 0, 0.3);
             z-index: 2;
-            animation: hotPulse 1.5s infinite;
+            animation: hotPulse 2s infinite;
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 0.5px;
         }
 
         @keyframes hotPulse {
             0% { transform: rotate(5deg) scale(1); box-shadow: 0 3px 10px rgba(255, 61, 0, 0.3); }
-            50% { transform: rotate(5deg) scale(1.1); box-shadow: 0 3px 15px rgba(255, 61, 0, 0.5); }
+            50% { transform: rotate(5deg) scale(1.05); box-shadow: 0 3px 15px rgba(255, 61, 0, 0.5); }
             100% { transform: rotate(5deg) scale(1); box-shadow: 0 3px 10px rgba(255, 61, 0, 0.3); }
         }
 
@@ -581,7 +585,7 @@
             transform: rotate(5deg);
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             z-index: 2;
-            animation: pulse 1.5s infinite;
+            animation: pulse 2s infinite;
         }
 
         .btn-telegram {
@@ -614,7 +618,7 @@
             font-size: 1.2rem;
         }
 
-        /* Latest Version Banner - IMPROVED */
+        /* Latest Version Banner */
         .latest-version-banner {
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
             padding: 10px 0;
@@ -631,7 +635,7 @@
             font-size: 13px;
             color: var(--primary);
             white-space: nowrap;
-            animation: scrollText 20s linear infinite;
+            animation: scrollText 25s linear infinite;
             display: inline-block;
             padding-left: 100%;
             font-weight: 600;
@@ -642,7 +646,7 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* Feature Highlights - UPDATED */
+        /* Feature Highlights */
         .feature-highlights {
             display: flex;
             justify-content: center;
@@ -711,18 +715,18 @@
             color: #ffcc00;
             font-size: 24px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            animation: starPulse 2s infinite;
+            animation: starPulse 3s infinite;
         }
 
         .star:nth-child(1) { animation-delay: 0s; }
-        .star:nth-child(2) { animation-delay: 0.2s; }
-        .star:nth-child(3) { animation-delay: 0.4s; }
-        .star:nth-child(4) { animation-delay: 0.6s; }
-        .star:nth-child(5) { animation-delay: 0.8s; }
+        .star:nth-child(2) { animation-delay: 0.3s; }
+        .star:nth-child(3) { animation-delay: 0.6s; }
+        .star:nth-child(4) { animation-delay: 0.9s; }
+        .star:nth-child(5) { animation-delay: 1.2s; }
 
         @keyframes starPulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
         }
 
         .rating-text {
@@ -838,23 +842,6 @@
             50% { opacity: 1; }
             100% { opacity: 0.7; }
         }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                transparent 45%,
-                rgba(255, 255, 255, 0.2) 50%,
-                transparent 55%
-            );
-            transform: rotate(30deg);
-            animation: pulse 3s infinite linear;
-        }
     </style>
 </head>
 <body>
@@ -896,14 +883,14 @@
         <div class="header">
             <p class="subtitle">>_ Free predictions for everyone</p>
             
-            <!-- Latest Version Banner - IMPROVED -->
+            <!-- Latest Version Banner -->
             <div class="latest-version-banner">
                 <div class="latest-version-text">
                     🔥 WINNING PREDICTIONS • DAILY UPDATES • FREE ACCESS • JOIN NOW • PROFESSIONAL ANALYSIS • WIN BIG 🔥
                 </div>
             </div>
             
-            <!-- Feature Highlights - UPDATED -->
+            <!-- Feature Highlights -->
             <div class="feature-highlights">
                 <div class="feature">
                     <div class="feature-icon">
@@ -1069,7 +1056,7 @@
             </button>
         </div>
 
-        <!-- Image Slider - MOVED BELOW GIFT CODE BUTTON -->
+        <!-- Image Slider -->
         <div class="slider-container">
             <div class="slider" id="slider">
                 <div class="slide">
